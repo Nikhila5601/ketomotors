@@ -1,27 +1,28 @@
 // WebSocketComponent.js
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const WebSocketComponent = () => {
-    useEffect(() => {
-        // Your WebSocket URL
-        const socketUrl = 'wss://ketomotors.in';
+    const [receivedData, setReceivedData] = useState(null);
 
-        // Create a new WebSocket instance
+    useEffect(() => {
+        const socketUrl = 'wss://ketomotors.in:8500/ws';
+
         const socket = new WebSocket(socketUrl);
 
-        // Event listener for when the connection is opened
         socket.addEventListener('open', (event) => {
             console.log('WebSocket connection opened:', event);
         });
 
-        // Event listener for when a message is received from the server
         socket.addEventListener('message', (event) => {
-            console.log('Message from server:', event.data);
-            // Handle the received message as needed
+            // Parse the received JSON data
+            const parsedData = JSON.parse(event.data);
+            console.log('Message from server:', parsedData);
+
+            // Update the component state with the received data
+            setReceivedData(parsedData);
         });
 
-        // Event listener for when the connection is closed
         socket.addEventListener('close', (event) => {
             console.log('WebSocket connection closed:', event);
         });
@@ -30,11 +31,16 @@ const WebSocketComponent = () => {
         return () => {
             socket.close();
         };
-    }, []); // Empty dependency array means this effect runs once after the initial render
+    }, []);
 
     return (
         <div>
-            {/* Your component JSX */}
+            <h2>Received Data:</h2>
+            {receivedData ? (
+                <pre>{JSON.stringify(receivedData, null, 2)}</pre>
+            ) : (
+                <p>No data received yet.</p>
+            )}
         </div>
     );
 };
