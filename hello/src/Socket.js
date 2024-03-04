@@ -6,7 +6,7 @@ const WebSocketComponent = () => {
     const [receivedData, setReceivedData] = useState(null);
 
     useEffect(() => {
-        const socketUrl = 'wss://ketomotors.in:8500/ws';
+        const socketUrl = 'wss://ketomotors.in/ws';
 
         const socket = new WebSocket(socketUrl);
 
