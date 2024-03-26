@@ -1,3 +1,4 @@
+import HomeLogo from "../assets/Battery/keto.png";
 import { BsFillLightningChargeFill } from "react-icons/bs";
 import React from 'react';
 const Logo = () => {
@@ -6,11 +7,11 @@ const Logo = () => {
 
             <div className="logo">
                 <div className="logo-icon">
-                    <BsFillLightningChargeFill />
+                    <img style={{ width:"48px"}} src={HomeLogo} alt="" />
                 </div>
             </div>
         </div>
     )
 }
 
-export default Logo
+export default Logo;
